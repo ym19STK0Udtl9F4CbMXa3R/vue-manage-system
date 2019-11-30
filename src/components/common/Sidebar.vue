@@ -62,6 +62,23 @@ export default {
                     title: '系统首页'
                 },
                 {
+                    icon: 'el-icon-lx-calendar',
+                    index: '2',
+                    title: '系统管理',
+                    subs: [
+                        {
+                            icon: 'el-icon-user',
+                            index: 'userManagement',
+                            title: '用户管理'
+                        },
+                        {
+                            icon: 'el-icon-user',
+                            index: 'roleManagement',
+                            title: '角色管理'
+                        },
+                    ]
+                },
+                {
                     icon: 'el-icon-lx-cascades',
                     index: 'table',
                     title: '基础表格'
@@ -84,10 +101,6 @@ export default {
                             index: '3-2',
                             title: '三级菜单',
                             subs: [
-                                {
-                                    index: 'editor',
-                                    title: '富文本编辑器'
-                                },
                                 {
                                     index: 'markdown',
                                     title: 'markdown编辑器'

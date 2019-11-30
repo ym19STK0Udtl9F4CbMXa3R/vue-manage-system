@@ -20,6 +20,16 @@ export default new Router({
                     meta: { title: '系统首页' }
                 },
                 {
+                    path: '/userManagement',
+                    component: () => import(/* webpackChunkName: "userManagement" */ '../components/page/UserManagement.vue'),
+                    meta: { title: '用户管理' }
+                },
+                {
+                    path: '/roleManagement',
+                    component: () => import(/* webpackChunkName: "roleManagement" */ '../components/page/RoleManagement.vue'),
+                    meta: { title: '角色管理' }
+                },
+                {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
                     meta: { title: '自定义图标' }
@@ -38,12 +48,6 @@ export default new Router({
                     path: '/form',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
                     meta: { title: '基本表单' }
-                },
-                {
-                    // 富文本编辑器组件
-                    path: '/editor',
-                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/VueEditor.vue'),
-                    meta: { title: '富文本编辑器' }
                 },
                 {
                     // markdown组件
