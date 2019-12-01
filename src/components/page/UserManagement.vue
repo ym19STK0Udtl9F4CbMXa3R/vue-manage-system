@@ -75,7 +75,7 @@
             <el-form ref="form" :model="editData" label-width="70px">
                 <el-form-item label="昵称">
                     <!-- @keyup.native.enter="saveEdit" 需使用native覆盖原有封装的keyup事件即可 -->
-                    <el-input @keyup.native.enter="saveEdit" v-model="editData.nickName" />
+                    <el-input v-model="editData.nickName" />
                 </el-form-item>
                 <el-form-item
                         prop="email"
@@ -275,6 +275,8 @@
                                 if (response.data.status === '200'){
                                     this.addVisible = false;
                                     this.resetForm(formName);
+                                    // 刷新，重新获取分页数据
+                                    this.getData();
                                     this.$message.success(response.data.data);
                                 }else {
                                     this.$message.error(response.data.data);
