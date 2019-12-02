@@ -30,6 +30,11 @@ export default new Router({
                     meta: { title: '角色管理' }
                 },
                 {
+                    path: '/permissionManagement',
+                    component: () => import(/* webpackChunkName: "permissionManagement" */ '../components/page/PermissionManagement.vue'),
+                    meta: { title: '权限管理' }
+                },
+                {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
                     meta: { title: '自定义图标' }

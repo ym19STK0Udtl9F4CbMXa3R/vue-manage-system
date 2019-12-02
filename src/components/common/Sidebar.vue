@@ -63,7 +63,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-calendar',
-                    index: '2',
+                    index: 'sysManagement',
                     title: '系统管理',
                     subs: [
                         {
@@ -76,6 +76,11 @@ export default {
                             index: 'roleManagement',
                             title: '角色管理'
                         },
+                        {
+                            icon: 'el-icon-user',
+                            index: 'permissionManagement',
+                            title: '权限管理'
+                        }
                     ]
                 },
                 {
