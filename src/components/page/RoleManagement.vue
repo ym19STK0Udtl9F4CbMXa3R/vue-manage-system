@@ -180,7 +180,6 @@
         },
         created() {
             this.getData();
-            this.getPermissionTree();
         },
         methods: {
             // 分页查询
@@ -288,6 +287,9 @@
             },
             // 编辑操作
             handleEdit(index, row) {
+                // 获取权限树
+                this.getPermissionTree();
+
                 this.idx = index;
                 this.form = row;
                 // 获取用户信息
@@ -334,8 +336,9 @@
                 );
                 // 更新角色权限信息
                 const updatePermissionList = [];
-                // 获取选中的ID
-                const checkedKeysList = this.$refs.permissionTree.getCheckedKeys();
+                // 获取选中的ID  getCheckedKeys(true) 只返回叶子节点    getCheckedKeys(false) 返回所有选中节点
+                const checkedKeysList = this.$refs.permissionTree.getCheckedKeys(true);
+                // console.log(checkedKeysList);
                 for (var i=0; i< checkedKeysList.length; i++){
                     updatePermissionList.push({'roleId': this.editData.id, 'permissionId': checkedKeysList[i]});
                 }
