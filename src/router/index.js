@@ -7,7 +7,8 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/dashboard'
+            redirect: '/dashboard',
+            meta:{requireAuth:true}
         },
         {
             path: '/',
@@ -17,22 +18,22 @@ export default new Router({
                 {
                     path: '/dashboard',
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Dashboard.vue'),
-                    meta: { title: '系统首页' }
+                    meta: { title: '系统首页', requireAuth:true}
                 },
                 {
                     path: '/userManagement',
                     component: () => import(/* webpackChunkName: "userManagement" */ '../components/page/UserManagement.vue'),
-                    meta: { title: '用户管理' }
+                    meta: { title: '用户管理', requireAuth:true}
                 },
                 {
                     path: '/roleManagement',
                     component: () => import(/* webpackChunkName: "roleManagement" */ '../components/page/RoleManagement.vue'),
-                    meta: { title: '角色管理' }
+                    meta: { title: '角色管理', requireAuth:true}
                 },
                 {
                     path: '/permissionManagement',
                     component: () => import(/* webpackChunkName: "permissionManagement" */ '../components/page/PermissionManagement.vue'),
-                    meta: { title: '权限管理' }
+                    meta: { title: '权限管理', requireAuth:true}
                 },
                 {
                     // 权限页面

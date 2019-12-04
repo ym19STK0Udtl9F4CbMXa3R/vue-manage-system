@@ -30,24 +30,43 @@
 <script>
 export default {
     data: function() {
+        var validateUsername = (rule, value, callback) => {
+            // 限制用户名只能由字母+数组组成
+            if (!new RegExp(/^[A-Za-z0-9]+$/).test(value)){
+                return callback(new Error('用户名只能为字母+数组组成'))
+            }else {
+                callback();
+            }
+        };
         return {
             param: {
-                username: 'admin',
-                password: '123123',
+                username: '',
+                password: '',
             },
             rules: {
-                username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                username: [
+                    { required: true, message: '请输入用户名', trigger: 'blur' },
+                    { validator: validateUsername, trigger: 'blur' }
+                ],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
             },
         };
     },
     methods: {
         submitForm() {
-            this.$refs.login.validate(valid => {
+            this.$refs.login.validate((valid) => {
                 if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
+                    this.axios.post("/sys/login", this.param).then(
+                        (response) => {
+                            if (response.data.status === 200){
+                                this.$message.success('登录成功');
+                                localStorage.setItem('Authorization', response.data.data);
+                                this.$router.push('/');
+                            }else {
+                                this.$message.error(response.data.message);
+                            }
+                        }
+                    );
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');
