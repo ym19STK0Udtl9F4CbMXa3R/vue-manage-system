@@ -187,8 +187,12 @@
                 this.axios.post("/sys/role/findPage", this.query).then(
                     (response) => {
                         // console.log(response);
-                        this.tableData = response.data.data.rows;
-                        this.pageTotal = response.data.data.total;
+                        if (response.data.status === 200){
+                            this.tableData = response.data.data.rows;
+                            this.pageTotal = response.data.data.total;
+                        }else {
+                            console.error("获取角色列表失败");
+                        }
                     }
                 )
             },
@@ -196,7 +200,7 @@
             getPermissionTree() {
                 this.axios.get("/sys/permission/findPermissionTree").then(
                     (response) => {
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             // console.log(response);
                             this.treeData = response.data.data;
                         }else {
@@ -220,7 +224,7 @@
                     if (valid) {
                         this.axios.post("sys/role/add",this.addData).then(
                             (response) => {
-                                if (response.data.status === '200'){
+                                if (response.data.status === 200){
                                     this.addVisible = false;
                                     this.resetForm(formName);
                                     // 刷新，重新获取分页数据
@@ -258,7 +262,7 @@
                         }
                         updateStatus.then(
                             (response) => {
-                                if (response.data.status === '200'){
+                                if (response.data.status === 200){
                                     this.$message.success(response.data.data);
                                     this.getData();
                                     // this.tableData.splice(index, 1);
@@ -296,7 +300,7 @@
                 this.axios.get("/sys/role/"+ this.form.id).then(
                     (response) => {
                         // console.log(response);
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             this.editData = response.data.data;
                         }else {
                             this.$message.error(response.data.data);
@@ -325,7 +329,7 @@
                 this.axios.put("/sys/role/update", this.editData).then(
                     (response) => {
                         // console.log(response);
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             this.$message.success(`修改第 ${this.idx + 1} 行成功`);
                             this.$set(this.tableData, this.idx, this.editData);
                             this.editVisible = false;
@@ -342,9 +346,9 @@
                 for (var i=0; i< checkedKeysList.length; i++){
                     updatePermissionList.push({'roleId': this.editData.id, 'permissionId': checkedKeysList[i]});
                 }
-                this.axios.post("/sys/role/modifyRolePermission", updatePermissionList).then(
+                this.axios.post("/sys/role/modifyRolePermission?roleId="+ this.editData.id, updatePermissionList).then(
                     (response) => {
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             this.$message.success(response.data.data);
                         } else {
                             this.$message.success(response.data.data);

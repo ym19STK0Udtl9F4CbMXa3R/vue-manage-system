@@ -239,8 +239,13 @@
                 this.axios.post("/sys/user/findPage", this.query).then(
                     (response) => {
                         // console.log(response);
-                        this.tableData = response.data.data.rows;
-                        this.pageTotal = response.data.data.total;
+                        if (response.data.status === 200){
+                            this.tableData = response.data.data.rows;
+                            this.pageTotal = response.data.data.total;
+                        }else {
+                            console.error("获取用户列表失败！");
+                        }
+
                     }
                 )
             },
@@ -248,7 +253,7 @@
             getRole() {
                 this.axios.get("/sys/role/list").then(
                     (response) => {
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             // console.log(response.data.data);
                             this.roleList = response.data.data;
                         } else {
@@ -272,7 +277,7 @@
                     if (valid) {
                         this.axios.post("sys/user/add",this.addData).then(
                             (response) => {
-                                if (response.data.status === '200'){
+                                if (response.data.status === 200){
                                     this.addVisible = false;
                                     this.resetForm(formName);
                                     // 刷新，重新获取分页数据
@@ -310,7 +315,7 @@
                         }
                         updateStatus.then(
                             (response) => {
-                                if (response.data.status === '200'){
+                                if (response.data.status === 200){
                                     this.$message.success(response.data.data);
                                     this.getData();
                                     // this.tableData.splice(index, 1);
@@ -345,7 +350,7 @@
                 this.axios.get("/sys/user/"+ this.form.id).then(
                     (response) => {
                         // console.log(response);
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             this.editData = response.data.data;
                         }else {
                             this.$message.error(response.data.data);
@@ -370,7 +375,7 @@
                 this.axios.put("/sys/user/update", this.editData).then(
                     (response) => {
                         console.log(response);
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             this.$message.success(`修改第 ${this.idx + 1} 行成功`);
                             this.$set(this.tableData, this.idx, this.editData);
                             this.editVisible = false;
@@ -384,9 +389,9 @@
                 for (var i=0; i< this.checkedRoleList.length; i++){
                     updateRoleList.push({'userId': this.editData.id, 'roleId': this.checkedRoleList[i]});
                 }
-                this.axios.post("/sys/user/modifyUserRole", updateRoleList).then(
+                this.axios.post("/sys/user/modifyUserRole?userId=" + this.editData.id, updateRoleList).then(
                     (response) => {
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             this.$message.success(response.data.data);
                         } else {
                             this.$message.success(response.data.data);

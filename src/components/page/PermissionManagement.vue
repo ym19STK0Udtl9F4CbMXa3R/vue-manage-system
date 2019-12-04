@@ -226,7 +226,7 @@
             getMenu(){
                 this.axios.get("/sys/permission/findMenuList").then(
                     (response) => {
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             // console.log(response.data.data);
                             this.permissionMenu = response.data.data;
                         }else {
@@ -260,8 +260,12 @@
                 this.axios.post("/sys/permission/findPage", this.query).then(
                     (response) => {
                         // console.log(response);
-                        this.tableData = response.data.data.rows;
-                        this.pageTotal = response.data.data.total;
+                        if (response.data.status === 200){
+                            this.tableData = response.data.data.rows;
+                            this.pageTotal = response.data.data.total;
+                        }else {
+                            console.error("获取权限列表失败");
+                        }
                     }
                 )
             },
@@ -282,7 +286,7 @@
                     if (valid) {
                         this.axios.post("sys/permission/add",this.addData).then(
                             (response) => {
-                                if (response.data.status === '200'){
+                                if (response.data.status === 200){
                                     this.addVisible = false;
                                     this.resetForm(formName);
                                     // 刷新，重新获取分页数据
@@ -320,7 +324,7 @@
                         }
                         updateStatus.then(
                             (response) => {
-                                if (response.data.status === '200'){
+                                if (response.data.status === 200){
                                     this.$message.success(response.data.data);
                                     this.getData();
                                     // this.tableData.splice(index, 1);
@@ -355,7 +359,7 @@
                 this.axios.get("/sys/permission/"+ this.form.id).then(
                     (response) => {
                         // console.log(response);
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             this.editData = response.data.data;
                         }else {
                             this.$message.error(response.data.data);
@@ -373,7 +377,7 @@
                 this.axios.put("/sys/permission/update", this.editData).then(
                     (response) => {
                         console.log(response);
-                        if (response.data.status === '200'){
+                        if (response.data.status === 200){
                             this.$message.success(`修改第 ${this.idx + 1} 行成功`);
                             this.$set(this.tableData, this.idx, this.editData);
                             this.editVisible = false;
