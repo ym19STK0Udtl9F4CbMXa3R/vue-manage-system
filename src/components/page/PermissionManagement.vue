@@ -291,9 +291,9 @@
                                     this.resetForm(formName);
                                     // 刷新，重新获取分页数据
                                     this.getData();
-                                    this.$message.success(response.data.data);
+                                    this.$message.success(response.data.message);
                                 }else {
-                                    this.$message.error(response.data.data);
+                                    this.$message.error(response.data.message);
                                 }
                             },(error => {
                                 this.$message.error('获取数据失败');
@@ -325,11 +325,11 @@
                         updateStatus.then(
                             (response) => {
                                 if (response.data.status === 200){
-                                    this.$message.success(response.data.data);
+                                    this.$message.success(response.data.message);
                                     this.getData();
                                     // this.tableData.splice(index, 1);
                                 }else {
-                                    this.$message.error(response.data.data);
+                                    this.$message.error(response.data.message);
                                 }
                             }
                         );
@@ -362,7 +362,7 @@
                         if (response.data.status === 200){
                             this.editData = response.data.data;
                         }else {
-                            this.$message.error(response.data.data);
+                            this.$message.error(response.data.message);
                         }
                     }
                 );
@@ -382,7 +382,7 @@
                             this.$set(this.tableData, this.idx, this.editData);
                             this.editVisible = false;
                         }else {
-                            this.$message.error(response.data.data);
+                            this.$message.error(response.data.message);
                         }
                     }
                 );
