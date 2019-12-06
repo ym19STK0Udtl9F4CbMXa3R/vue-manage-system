@@ -110,11 +110,17 @@ axios.interceptors.response.use(
             //后台定义401为token过期
             console.error('token过期,请重新登录!');
             //  如果token过期了;我们应该清楚token
-            localStorage.removeItem('localStorage.Authorization');
+            localStorage.removeItem('Authorization');
+            localStorage.removeItem('nickName');
             //   清楚后让它跳转到登录页面去
             router.replace({
                 path: '/login',
                 query: {redirect: router.currentRoute.fullPath}
+            });
+        } else if (status === 403){
+            //后台定义403为权限不足
+            router.replace({
+                path: '/403',
             });
         } else {
             console.error(error.response.data)

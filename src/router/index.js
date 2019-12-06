@@ -36,12 +36,6 @@ export default new Router({
                     meta: { title: '权限管理', requireAuth:true}
                 },
                 {
-                    // 权限页面
-                    path: '/permission',
-                    component: () => import(/* webpackChunkName: "permission" */ '../components/page/Permission.vue'),
-                    meta: { title: '权限测试', permission: true }
-                },
-                {
                     path: '/404',
                     component: () => import(/* webpackChunkName: "404" */ '../components/page/404.vue'),
                     meta: { title: '404' }
@@ -51,11 +45,6 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "403" */ '../components/page/403.vue'),
                     meta: { title: '403' }
                 },
-                {
-                    path: '/donate',
-                    component: () => import(/* webpackChunkName: "donate" */ '../components/page/Donate.vue'),
-                    meta: { title: '支持作者' }
-                }
             ]
         },
         {

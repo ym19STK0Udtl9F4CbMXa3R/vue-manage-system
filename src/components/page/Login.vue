@@ -60,7 +60,8 @@ export default {
                         (response) => {
                             if (response.data.status === 200){
                                 this.$message.success('登录成功');
-                                localStorage.setItem('Authorization', response.data.data);
+                                localStorage.setItem('Authorization', response.data.data.token);
+                                localStorage.setItem('nickName', response.data.data.nickName);
                                 this.$router.push('/');
                             }else {
                                 this.$message.error(response.data.message);

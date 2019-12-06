@@ -287,7 +287,8 @@
                                     this.$message.error(response.data.message);
                                 }
                             },(error => {
-                                this.$message.error('获取数据失败');
+                                this.resetForm(formName);
+                                this.$message.error('添加数据失败');
                             })
                         );
                     } else {
@@ -382,6 +383,8 @@
                         }else {
                             this.$message.error(response.data.message);
                         }
+                    },(error) => {
+                        this.editVisible = false;
                     }
                 );
                 // 更新用户角色信息

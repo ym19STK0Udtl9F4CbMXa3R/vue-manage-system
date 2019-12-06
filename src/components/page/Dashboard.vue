@@ -7,7 +7,7 @@
                         <img src="../../assets/img/img.jpg" class="user-avator" alt />
                         <div class="user-info-cont">
                             <div class="user-info-name">{{name}}</div>
-                            <div>{{role}}</div>
+<!--                            <div>{{role}}</div>-->
                         </div>
                     </div>
                     <div class="user-info-list">
@@ -116,7 +116,7 @@ export default {
     name: 'dashboard',
     data() {
         return {
-            name: localStorage.getItem('ms_username'),
+            name: localStorage.getItem('nickName'),
             todoList: [
                 {
                     title: '今天要修复100个bug',
@@ -222,9 +222,9 @@ export default {
         Schart
     },
     computed: {
-        role() {
-            return this.name === 'admin' ? '超级管理员' : '普通用户';
-        }
+        // role() {
+        //     return this.name === 'admin' ? '超级管理员' : '普通用户';
+        // }
     },
     // created() {
     //     this.handleListener();
