@@ -122,8 +122,8 @@
 
         <!-- 新增弹出框 -->
         <el-dialog title="新增" :visible.sync="addVisible" width="30%">
-            <el-form ref="addRuleForm" status-icon :model="addData" :rules="rules" label-width="70px">
-                <el-form-item label="父级菜单">
+            <el-form ref="addPermissionForm" status-icon :model="addData" :rules="rules" label-width="70px">
+                <el-form-item label="父级菜单" prop="parentId">
                     <el-select v-model="addData.parentId" placeholder="请选择">
                         <el-option
                                 v-for="item in permissionMenu"
@@ -133,32 +133,32 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="权限名">
+                <el-form-item label="权限名" prop="name">
                     <el-input v-model="addData.name" />
                 </el-form-item>
-                <el-form-item label="备注">
+                <el-form-item label="备注" prop="remark">
                     <el-input type="textarea" rows="5" v-model="addData.remark" />
                 </el-form-item>
-                <el-form-item label="类型">
+                <el-form-item label="类型" prop="type">
                     <el-radio-group v-model="addData.type">
                         <el-radio :label="0">目录</el-radio>
                         <el-radio :label="1">菜单</el-radio>
                         <el-radio :label="2">功能</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="排序">
+                <el-form-item label="排序" prop="sort">
                     <el-input v-model="addData.sort" />
                 </el-form-item>
-                <el-form-item label="权限路径">
+                <el-form-item label="权限路径" prop="url">
                     <el-input v-model="addData.url" />
                 </el-form-item>
-                <el-form-item label="权限编码">
+                <el-form-item label="权限编码" prop="permCode">
                     <el-input v-model="addData.permCode" />
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="resetForm('addRuleForm')">取 消</el-button>
-                <el-button type="primary" @click="submitAdd('addRuleForm')">确 定</el-button>
+                <el-button @click="resetForm('addPermissionForm')">取 消</el-button>
+                <el-button type="primary" @click="submitAdd('addPermissionForm')">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -287,7 +287,7 @@
                         this.axios.post("sys/permission/add",this.addData).then(
                             (response) => {
                                 if (response.data.status === 200){
-                                    this.addVisible = false;
+                                    // this.addVisible = false;
                                     this.resetForm(formName);
                                     // 刷新，重新获取分页数据
                                     this.getData();
@@ -394,11 +394,9 @@
             },
             // 清空表单
             resetForm(formName) {
+                this.$refs[formName].resetFields();
                 this.addVisible = false;
                 this.editVisible = false;
-                this.$refs[formName].resetFields();
-                // 清空角色数据
-                this.checkedRoleList = [];
             }
         }
     };
