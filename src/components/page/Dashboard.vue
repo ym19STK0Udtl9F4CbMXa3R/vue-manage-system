@@ -237,6 +237,9 @@ export default {
     //     window.removeEventListener('resize', this.renderChart);
     //     bus.$off('collapse', this.handleBus);
     // },
+    created() {
+        this.isLive();
+    },
     methods: {
         changeDate() {
             const now = new Date().getTime();
@@ -244,6 +247,15 @@ export default {
                 const date = new Date(now - (6 - index) * 86400000);
                 item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
             });
+        },
+        isLive() {
+            this.axios.get("/sys/live").then(
+                (response) => {
+                    if (response.data.status === 200){
+                        console.log("live");
+                    }
+                }
+            );
         }
         // handleListener() {
         //     bus.$on('collapse', this.handleBus);
