@@ -21,7 +21,7 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <p class="login-tips">Tips : 用户名:tester和密码:tester</p>
             </el-form>
         </div>
     </div>
@@ -62,6 +62,7 @@ export default {
                                 this.$message.success('登录成功');
                                 localStorage.setItem('Authorization', response.data.data.token);
                                 localStorage.setItem('nickName', response.data.data.nickName);
+                                alert("批量删除功能无效");
                                 this.$router.push('/');
                             }else {
                                 this.$message.error(response.data.message);
@@ -119,6 +120,6 @@ export default {
 .login-tips {
     font-size: 12px;
     line-height: 30px;
-    color: #fff;
+    color: #f02d2d;
 }
 </style>
